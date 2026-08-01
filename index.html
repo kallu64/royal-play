@@ -1,150 +1,3709 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
 
-    <title>My Gaming App</title>
+<meta charset="utf-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta name="viewport"
+content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta name="theme-color" content="#080608">
+
+<title>Royal Play Demo</title>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  min-height:100%;
+  background:#050405;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+  min-height:100vh;
+}
+
+button{
+  font:inherit;
+  color:inherit;
+  border:0;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+
+button:active{
+  transform:scale(.97);
+}
+
+input{
+  font:inherit;
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+#loginScreen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    radial-gradient(
+      circle at 50% 10%,
+      #651722,
+      #18080d 45%,
+      #050405 80%
+    );
+}
+
+.login-box{
+  width:100%;
+  max-width:430px;
+
+  padding:28px 22px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #35121b,
+      #10080c
+    );
+
+  border:1px solid #87303d;
+
+  box-shadow:
+    0 20px 60px #000;
+}
+
+.login-logo{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.login-logo .rp{
+  font-size:55px;
+  font-weight:900;
+  font-style:italic;
+  color:#ff2448;
+  text-shadow:0 0 25px #ff244855;
+}
+
+.login-logo h1{
+  margin-top:5px;
+  color:#ffd43f;
+  font-size:24px;
+}
+
+.login-logo p{
+  margin-top:7px;
+  color:#aaa;
+  font-size:12px;
+}
+
+.login-title{
+  margin-bottom:10px;
+  font-size:20px;
+}
+
+.login-sub{
+  color:#999;
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+.phone-input{
+  display:flex;
+  height:55px;
+
+  border-radius:14px;
+  overflow:hidden;
+
+  background:#170b0f;
+  border:1px solid #59212d;
+}
+
+.country{
+  width:72px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#241017;
+  color:#ffd43f;
+  font-weight:bold;
+}
+
+.phone-input input{
+  flex:1;
+  min-width:0;
+
+  padding:0 15px;
+
+  outline:none;
+  border:0;
+
+  background:transparent;
+  color:white;
+
+  font-size:18px;
+  letter-spacing:1px;
+}
+
+.phone-input input::placeholder{
+  color:#777;
+}
+
+.login-btn{
+  width:100%;
+
+  margin-top:15px;
+  padding:16px;
+
+  border-radius:30px;
+
+  background:
+    linear-gradient(
+      #ffdc47,
+      #ff5f0b
+    );
+
+  color:white;
+  font-weight:900;
+
+  box-shadow:
+    0 7px 20px #ff590055;
+}
+
+.login-note{
+  margin-top:15px;
+
+  color:#888;
+
+  font-size:11px;
+  line-height:1.5;
+
+  text-align:center;
+}
+
+.error{
+  min-height:20px;
+
+  margin-top:9px;
+
+  color:#ff5263;
+
+  font-size:12px;
+
+  text-align:center;
+}
+
+
+/* =====================================================
+   OTP
+===================================================== */
+
+#otpScreen{
+  display:none;
+}
+
+.otp-display{
+  text-align:center;
+  margin:20px 0;
+}
+
+.otp-display .lock{
+  font-size:55px;
+}
+
+.otp-display p{
+  margin-top:10px;
+
+  color:#aaa;
+
+  font-size:13px;
+}
+
+.otp-input{
+  width:100%;
+  height:58px;
+
+  text-align:center;
+
+  border-radius:14px;
+
+  border:1px solid #59212d;
+
+  outline:none;
+
+  background:#170b0f;
+  color:#ffd43f;
+
+  font-size:25px;
+  font-weight:bold;
+
+  letter-spacing:8px;
+}
+
+.resend{
+  display:block;
+
+  margin:15px auto 0;
+
+  background:none;
+
+  color:#ffd43f;
+
+  font-size:13px;
+}
+
+.demo-otp{
+  margin-top:14px;
+
+  padding:10px;
+
+  border-radius:10px;
+
+  background:#211017;
+
+  border:1px dashed #6b2936;
+
+  color:#aaa;
+
+  text-align:center;
+
+  font-size:11px;
+}
+
+.demo-otp b{
+  color:#ffd43f;
+}
+
+
+/* =====================================================
+   APP
+===================================================== */
+
+#app{
+  width:100%;
+  max-width:720px;
+
+  min-height:100vh;
+
+  margin:auto;
+
+  padding-bottom:95px;
+
+  background:
+    radial-gradient(
+      circle at 50% 8%,
+      #54121c,
+      #18090d 38%,
+      #070507 75%
+    );
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:30;
+
+  height:76px;
+
+  display:flex;
+  align-items:center;
+
+  gap:9px;
+  padding:10px 12px;
+
+  background:#10090c;
+
+  border-bottom:1px solid #5b1c28;
+}
+
+.brand{
+  width:55px;
+
+  color:#ff2448;
+
+  font-size:27px;
+  font-weight:900;
+  font-style:italic;
+
+  text-shadow:
+    0 0 10px #ff244855;
+}
+
+.wallet{
+  height:48px;
+
+  flex:1;
+  min-width:0;
+
+  display:flex;
+  align-items:center;
+
+  gap:8px;
+
+  padding:0 12px;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #26161c,
+      #42212b
+    );
+
+  box-shadow:
+    inset 0 0 14px #000;
+
+  font-size:18px;
+  font-weight:800;
+}
+
+.coin{
+  width:30px;
+  height:30px;
+
+  flex-shrink:0;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:50%;
+
+  background:#f3c33f;
+
+  color:#612700;
+
+  border:2px solid #ffe894;
+}
+
+.gift{
+  width:40px;
+
+  background:none;
+
+  font-size:27px;
+}
+
+.avatar{
+  width:52px;
+  height:52px;
+
+  flex-shrink:0;
+
+  border-radius:50%;
+
+  background:#281c21;
+
+  border:1px solid #70404b;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+  justify-content:center;
+}
+
+.avatar span{
+  font-size:21px;
+}
+
+.avatar small{
+  color:#ffd43e;
+
+  font-size:9px;
+
+  font-weight:bold;
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+.page{
+  padding:14px;
+}
+
+.carousel{
+  position:relative;
+
+  overflow:hidden;
+
+  border-radius:23px;
+
+  border:1px solid #8b3035;
+
+  box-shadow:
+    0 0 35px #ff203326;
+}
+
+.slide{
+  display:none;
+
+  min-height:470px;
+
+  padding:25px 20px 30px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  align-items:flex-end;
+  justify-content:center;
+
+  text-align:center;
+}
+
+.slide.active{
+  display:flex;
+
+  animation:fade .45s ease;
+}
+
+@keyframes fade{
+
+  from{
+    opacity:.2;
+    transform:scale(1.015);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+
+}
+
+.slide.one{
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      #bd4231,
+      #5b1119 43%,
+      #16070b 76%
+    );
+}
+
+.slide.two{
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      #b56a18,
+      #4a1908 42%,
+      #110607 78%
+    );
+}
+
+.slide.three{
+  background:
+    radial-gradient(
+      circle at 50% 25%,
+      #1f65a3,
+      #091525 48%,
+      #05070d 80%
+    );
+}
+
+.art{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.fallback-art{
+  position:absolute;
+
+  left:50%;
+  top:55px;
+
+  transform:translateX(-50%);
+
+  font-size:105px;
+
+  filter:
+    drop-shadow(0 0 20px #ffb000);
+}
+
+.spark{
+  position:absolute;
+
+  right:12%;
+  top:15%;
+
+  font-size:65px;
+
+  color:#ffc33a;
+
+  opacity:.7;
+}
+
+.coins{
+  position:absolute;
+
+  left:8%;
+  bottom:27%;
+
+  font-size:42px;
+
+  filter:
+    drop-shadow(0 0 8px #ffb000);
+}
+
+.slide-content{
+  position:relative;
+
+  z-index:3;
+
+  width:100%;
+}
+
+.pill{
+  display:inline-block;
+
+  padding:8px 14px;
+
+  border:1px solid #ffd447;
+
+  border-radius:20px;
+
+  background:#b80f25;
+
+  font-size:12px;
+  font-weight:900;
+}
+
+.slide h1{
+  margin:14px 0 5px;
+
+  font-size:30px;
+
+  text-shadow:
+    0 3px 5px #000;
+}
+
+.slide p{
+  margin:6px 0;
+}
+
+.prize{
+  color:#ffd53f;
+
+  font-size:40px;
+
+  font-weight:1000;
+
+  text-shadow:
+    0 3px 8px #000;
+}
+
+.primary{
+  margin-top:12px;
+
+  padding:14px 30px;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      #ffdc47,
+      #ff5f0b
+    );
+
+  font-weight:900;
+
+  box-shadow:
+    0 7px 20px #ff590055;
+}
+
+.carousel-arrow{
+  position:absolute;
+
+  z-index:5;
+
+  top:50%;
+
+  width:38px;
+  height:38px;
+
+  margin-top:-19px;
+
+  border-radius:50%;
+
+  background:#190c11aa;
+
+  border:1px solid #ffd33e;
+
+  color:#ffd33e;
+
+  font-size:28px;
+}
+
+.prev{
+  left:9px;
+}
+
+.next{
+  right:9px;
+}
+
+.dots{
+  text-align:center;
+
+  color:#f12d4d;
+
+  letter-spacing:4px;
+
+  padding:10px;
+}
+
+.title{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin:12px 2px 9px;
+}
+
+.title h2{
+  font-size:18px;
+}
+
+.title button{
+  background:none;
+
+  color:#ffd43e;
+
+  font-size:12px;
+}
+
+.games{
+  display:grid;
+
+  gap:14px;
+}
+
+.game{
+  height:135px;
+
+  padding:18px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  border-radius:15px;
+
+  border:1px solid #b94b22;
+
+  box-shadow:
+    0 8px 22px #000;
+}
+
+.game:before{
+  content:"";
+
+  position:absolute;
+
+  inset:-50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #ffbd2c55,
+      transparent 55%
+    );
+
+  transform:rotate(20deg);
+}
+
+.game>*{
+  position:relative;
+}
+
+.crash{
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      #f05218,
+      #40080e 68%
+    );
+}
+
+.gold{
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      #bf7716,
+      #2b1006 68%
+    );
+}
+
+.sports{
+  background:
+    radial-gradient(
+      circle at 70% 20%,
+      #1d5c99,
+      #07101d 68%
+    );
+}
+
+.game h3{
+  margin:0 0 5px;
+
+  color:#ffd43f;
+
+  font-size:28px;
+}
+
+.game p{
+  font-size:13px;
+
+  font-weight:bold;
+}
+
+.play{
+  width:54px;
+  height:54px;
+
+  border-radius:15px;
+
+  background:
+    linear-gradient(
+      #ff3153,
+      #80081e
+    );
+
+  border:1px solid #ff7582;
+
+  font-size:21px;
+}
+
+
+/* =====================================================
+   PANELS
+===================================================== */
+
+.panel{
+  padding:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #2b1118,
+      #10080b
+    );
+
+  border:1px solid #61212c;
+
+  border-radius:18px;
+
+  box-shadow:
+    0 8px 25px #000;
+}
+
+.back{
+  margin-bottom:10px;
+
+  background:none;
+
+  color:#ffd43f;
+}
+
+.panel h2{
+  margin-bottom:12px;
+}
+
+.stats{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:9px;
+}
+
+.stat{
+  padding:13px;
+
+  border-radius:12px;
+
+  background:#190c10;
+
+  border:1px solid #49202a;
+
+  text-align:center;
+
+  font-size:12px;
+}
+
+.stat b{
+  display:block;
+
+  margin-bottom:4px;
+
+  color:#ffd43f;
+
+  font-size:19px;
+}
+
+.list{
+  display:grid;
+
+  gap:9px;
+
+  margin-top:12px;
+}
+
+.row{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:13px;
+
+  border-radius:12px;
+
+  background:#170b0f;
+
+  border:1px solid #421b25;
+
+  font-size:13px;
+}
+
+.row strong{
+  color:#ffd43f;
+}
+
+.note{
+  color:#aaa;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+  text-align:center;
+}
+
+.bar{
+  height:10px;
+
+  margin:12px 0;
+
+  overflow:hidden;
+
+  border-radius:10px;
+
+  background:#28131a;
+}
+
+.bar i{
+  display:block;
+
+  width:70%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff2e4d,
+      #ffd33d
+    );
+}
+
+.two{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:10px;
+}
+
+.mini{
+  padding:15px;
+
+  border-radius:14px;
+
+  background:#180b10;
+
+  border:1px solid #491d28;
+}
+
+.mini h3{
+  color:#ffd43f;
+
+  margin-bottom:7px;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-card{
+  text-align:center;
+
+  padding:20px 10px 25px;
+}
+
+.profile-avatar{
+  width:90px;
+  height:90px;
+
+  margin:0 auto 15px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #5b202b,
+      #180a0f
+    );
+
+  border:2px solid #ffd43f;
+
+  box-shadow:
+    0 0 25px #ffb00044;
+
+  font-size:45px;
+}
+
+.profile-name{
+  color:#ffd43f;
+
+  font-size:23px;
+
+  font-weight:900;
+}
+
+.profile-phone{
+  margin-top:8px;
+
+  color:#aaa;
+
+  font-size:15px;
+
+  letter-spacing:1px;
+}
+
+.profile-badge{
+  display:inline-block;
+
+  margin-top:10px;
+
+  padding:7px 15px;
+
+  border-radius:20px;
+
+  background:#48121e;
+
+  border:1px solid #8b3041;
+
+  color:#ffd43f;
+
+  font-size:12px;
+
+  font-weight:bold;
+}
+
+.logout{
+  width:100%;
+
+  margin-top:18px;
+
+  padding:14px;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      #7c1c2e,
+      #390914
+    );
+
+  border:1px solid #a43a4c;
+
+  color:#fff;
+
+  font-weight:bold;
+}
+
+
+/* =====================================================
+   BOTTOM
+===================================================== */
+
+.bottom{
+  position:fixed;
+
+  z-index:50;
+
+  bottom:0;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:min(720px,100%);
+
+  height:78px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-around;
+
+  background:
+    linear-gradient(
+      #341016,
+      #0c0709
+    );
+
+  border-top:1px solid #742532;
+
+  box-shadow:
+    0 -8px 25px #000;
+}
+
+.bottom button{
+  min-width:55px;
+
+  background:none;
+
+  text-align:center;
+
+  color:#ffd451;
+}
+
+.bottom span{
+  display:block;
+
+  font-size:24px;
+
+  line-height:27px;
+}
+
+.bottom small{
+  font-size:9px;
+
+  font-weight:900;
+}
+
+.cash{
+  width:78px;
+  height:78px;
+
+  margin-top:-25px;
+
+  border-radius:50%!important;
+
+  background:
+    radial-gradient(
+      circle,
+      #ffe16a,
+      #d82d37 48%,
+      #470a13 74%
+    )!important;
+
+  border:2px solid #ffd54a!important;
+
+  box-shadow:
+    0 0 25px #ffbe2388;
+}
+
+
+/* =====================================================
+   GAME MODAL
+===================================================== */
+
+.modal-bg{
+  position:fixed;
+
+  inset:0;
+
+  z-index:80;
+
+  display:grid;
+
+  place-items:center;
+
+  padding:15px;
+
+  background:#000e;
+}
+
+.modal{
+  width:min(450px,100%);
+
+  max-height:94vh;
+
+  overflow:auto;
+
+  padding:20px;
+
+  border-radius:22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #2b1017,
+      #0e080b
+    );
+
+  border:1px solid #87303d;
+
+  box-shadow:
+    0 20px 60px #000;
+}
+
+.close{
+  float:right;
+
+  background:none;
+
+  color:#ffd43f;
+
+  font-size:28px;
+}
+
+.game-header{
+  padding:5px;
+
+  text-align:center;
+}
+
+.game-header h2{
+  color:#ffd43f;
+
+  font-size:25px;
+}
+
+.game-header p{
+  margin-top:5px;
+}
+
+.score-box{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:8px;
+
+  margin-top:10px;
+}
+
+.score{
+  flex:1;
+
+  padding:10px;
+
+  border-radius:12px;
+
+  background:#190c10;
+
+  border:1px solid #49202a;
+
+  text-align:center;
+}
+
+.score b{
+  display:block;
+
+  color:#ffd43f;
+
+  font-size:18px;
+}
+
+.game-board{
+  margin-top:15px;
+
+  min-height:300px;
+
+  padding:18px;
+
+  border-radius:20px;
+
+  border:2px solid #a63a29;
+
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      #6b1b1e,
+      #19090d 65%,
+      #080508
+    );
+
+  text-align:center;
+}
+
+.game-icon{
+  margin:10px 0;
+
+  font-size:85px;
+
+  filter:
+    drop-shadow(0 0 15px #ffb000);
+}
+
+.game-name{
+  color:#ffd43f;
+
+  font-size:20px;
+
+  font-weight:bold;
+}
+
+.result{
+  min-height:30px;
+
+  margin-top:10px;
+
+  color:#ffd43f;
+
+  font-size:18px;
+
+  font-weight:bold;
+}
+
+.multiplier{
+  margin-top:8px;
+
+  color:#ff5263;
+
+  font-size:30px;
+
+  font-weight:900;
+}
+
+.round-btn{
+  width:100%;
+
+  margin-top:14px;
+
+  padding:15px;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      #ffdc47,
+      #ff5f0b
+    );
+
+  font-weight:900;
+}
+
+.round-btn:disabled{
+  opacity:.6;
+}
+
+.back-game{
+  width:100%;
+
+  margin-top:10px;
+
+  padding:13px;
+
+  border-radius:25px;
+
+  background:#351018;
+
+  border:1px solid #8a2b3a;
+
+  color:#ffd43f;
+}
+
+.spin{
+  animation:spinGame .9s ease;
+}
+
+@keyframes spinGame{
+
+  0%{
+    transform:rotate(0) scale(1);
+  }
+
+  25%{
+    transform:rotate(90deg) scale(1.15);
+  }
+
+  50%{
+    transform:rotate(180deg) scale(1.25);
+  }
+
+  75%{
+    transform:rotate(270deg) scale(1.15);
+  }
+
+  100%{
+    transform:rotate(360deg) scale(1);
+  }
+
+}
+
+.win{
+  animation:winPulse .6s ease;
+}
+
+@keyframes winPulse{
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.25);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+#toast{
+  position:fixed;
+
+  z-index:10000;
+
+  left:50%;
+
+  bottom:95px;
+
+  transform:
+    translate(-50%,15px);
+
+  opacity:0;
+
+  pointer-events:none;
+
+  padding:11px 17px;
+
+  border-radius:12px;
+
+  background:#241016;
+
+  border:1px solid #8a2b3a;
+
+  transition:.25s;
+
+  white-space:nowrap;
+}
+
+#toast.show{
+  opacity:1;
+
+  transform:
+    translate(-50%,0);
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:390px){
+
+  .topbar{
+    gap:6px;
+    padding:9px;
+  }
+
+  .brand{
+    width:45px;
+    font-size:24px;
+  }
+
+  .wallet{
+    font-size:16px;
+  }
+
+  .avatar{
+    width:47px;
+    height:47px;
+  }
+
+  .slide{
+    min-height:435px;
+  }
+
+  .slide h1{
+    font-size:25px;
+  }
+
+  .prize{
+    font-size:34px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .two{
+    grid-template-columns:1fr;
+  }
+
+  .game h3{
+    font-size:24px;
+  }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <!-- TOP BAR -->
-    <header class="topbar">
 
-        <div class="logo">
-            RG
+<!-- =====================================================
+     LOGIN SCREEN
+===================================================== -->
+
+<div id="loginScreen">
+
+  <div class="login-box">
+
+
+    <!-- PHONE -->
+
+    <div id="phoneScreen">
+
+      <div class="login-logo">
+
+        <div class="rp">
+          RP
         </div>
 
-        <div class="balance">
-            ₹<span id="balance">0.50</span>
+        <h1>
+          Royal Play
+        </h1>
+
+        <p>
+          Demo Gaming Platform
+        </p>
+
+      </div>
+
+
+      <h2 class="login-title">
+        Login / Register
+      </h2>
+
+      <p class="login-sub">
+        Enter your Indian mobile number
+      </p>
+
+
+      <div class="phone-input">
+
+        <div class="country">
+          🇮🇳 +91
         </div>
 
-        <div class="gift">🎁</div>
+        <input
+          id="phone"
+          type="tel"
+          inputmode="numeric"
+          maxlength="10"
+          placeholder="10 digit mobile number"
+        >
 
-        <div class="profile">
-            👩🏻
-            <small>VIP 4</small>
+      </div>
+
+
+      <div
+        id="phoneError"
+        class="error">
+      </div>
+
+
+      <button
+        class="login-btn"
+        onclick="sendOTP()">
+
+        SEND OTP
+
+      </button>
+
+
+      <p class="login-note">
+
+        Demo login only.<br>
+        No real SMS is sent from this HTML file.
+
+      </p>
+
+    </div>
+
+
+    <!-- OTP -->
+
+    <div id="otpScreen">
+
+      <div class="login-logo">
+
+        <div class="rp">
+          RP
         </div>
 
-    </header>
+        <h1>
+          Verify Number
+        </h1>
+
+      </div>
 
 
-    <!-- MAIN CONTENT -->
-    <main>
+      <div class="otp-display">
 
-        <!-- HERO -->
-        <section class="hero">
-
-            <div class="hero-content">
-
-                <div class="badge">
-                    👑 TOP GAMING PLATFORM
-                </div>
-
-                <h1>TOP BRAND CHOICE</h1>
-
-                <p>
-                    GET A CHANCE TO WIN
-                </p>
-
-                <strong>₹777,777</strong>
-
-                <button onclick="demoPlay()">
-                    PLAY NOW
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- GAME BANNERS -->
-
-        <section class="games">
-
-            <div class="game-card crash"
-                 onclick="openGame('Crash')">
-
-                <div>
-                    <h2>CRASH</h2>
-                    <p>Up to 10,000X</p>
-                </div>
-
-                <button>▶</button>
-
-            </div>
-
-
-            <div class="game-card jili"
-                 onclick="openGame('JILI')">
-
-                <div>
-                    <h2>JILI</h2>
-                    <p>PLAY GAMES</p>
-                </div>
-
-                <button>▶</button>
-
-            </div>
-
-
-            <div class="game-card sports"
-                 onclick="openGame('Sports')">
-
-                <div>
-                    <h2>SPORTS</h2>
-                    <p>GAME ZONE</p>
-                </div>
-
-                <button>▶</button>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- BOTTOM NAVIGATION -->
-
-    <nav class="bottom-nav">
-
-        <div onclick="menu()">
-            <span>♠</span>
-            <label>MENU</label>
+        <div class="lock">
+          🔐
         </div>
 
-        <div onclick="ranking()">
-            <span>🏆</span>
-            <label>RANKING</label>
+        <p id="otpPhoneText">
+          OTP sent to your number
+        </p>
+
+      </div>
+
+
+      <input
+        id="otp"
+        class="otp-input"
+        type="tel"
+        inputmode="numeric"
+        maxlength="6"
+        placeholder="••••••"
+      >
+
+
+      <div
+        id="otpError"
+        class="error">
+      </div>
+
+
+      <button
+        class="login-btn"
+        onclick="verifyOTP()">
+
+        VERIFY & LOGIN
+
+      </button>
+
+
+      <button
+        class="resend"
+        onclick="backToPhone()">
+
+        ← Change mobile number
+
+      </button>
+
+
+      <div class="demo-otp">
+
+        DEMO OTP:
+        <b>123456</b>
+
+      </div>
+
+
+      <p class="login-note">
+
+        This OTP is only for local testing.
+        Real SMS OTP requires a secure backend.
+
+      </p>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MAIN APP
+===================================================== -->
+
+<div id="app" style="display:none">
+
+
+<header class="topbar">
+
+
+  <div class="brand">
+    RP
+  </div>
+
+
+  <div class="wallet">
+
+    <span class="coin">
+      ₹
+    </span>
+
+    <span id="balance">
+      0.50
+    </span>
+
+    <span
+      style="margin-left:auto;color:#aaa">
+
+      ⌄
+
+    </span>
+
+  </div>
+
+
+  <button
+    class="gift"
+    onclick="go('earn')">
+
+    🎁
+
+  </button>
+
+
+  <button
+    class="avatar"
+    onclick="go('profile')">
+
+    <span>
+      👤
+    </span>
+
+    <small id="topProfileLabel">
+      VIP 4
+    </small>
+
+  </button>
+
+
+</header>
+
+
+<main id="content"></main>
+
+
+<nav class="bottom">
+
+
+  <button onclick="go('home')">
+
+    <span>
+      ♠
+    </span>
+
+    <small>
+      MENU
+    </small>
+
+  </button>
+
+
+  <button onclick="go('ranking')">
+
+    <span>
+      🏆
+    </span>
+
+    <small>
+      RANKING
+    </small>
+
+  </button>
+
+
+  <button
+    class="cash"
+    onclick="go('cash')">
+
+    <span>
+      ₹
+    </span>
+
+    <small>
+      GET CASH
+    </small>
+
+  </button>
+
+
+  <button onclick="go('vip')">
+
+    <span>
+      ◇
+    </span>
+
+    <small>
+      VIP
+    </small>
+
+  </button>
+
+
+  <button onclick="go('earn')">
+
+    <span>
+      ₹
+    </span>
+
+    <small>
+      EARN
+    </small>
+
+  </button>
+
+
+</nav>
+
+
+</div>
+
+
+<div id="toast"></div>
+
+
+
+<script>
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
+
+const loginScreen =
+document.getElementById("loginScreen");
+
+const phoneScreen =
+document.getElementById("phoneScreen");
+
+const otpScreen =
+document.getElementById("otpScreen");
+
+const phoneInput =
+document.getElementById("phone");
+
+const otpInput =
+document.getElementById("otp");
+
+const phoneError =
+document.getElementById("phoneError");
+
+const otpError =
+document.getElementById("otpError");
+
+const otpPhoneText =
+document.getElementById("otpPhoneText");
+
+const app =
+document.getElementById("app");
+
+const content =
+document.getElementById("content");
+
+const toast =
+document.getElementById("toast");
+
+
+let currentPhone = "";
+
+let slide = 0;
+
+let timer = null;
+
+let demoPoints = 1240;
+
+let roundCount = 0;
+
+
+/* =====================================================
+   PHONE FORMAT
+===================================================== */
+
+function cleanPhone(value){
+
+  return value
+    .replace(/\D/g,"")
+    .slice(0,10);
+
+}
+
+
+/* =====================================================
+   MASK PHONE
+===================================================== */
+
+function maskPhone(phone){
+
+  if(!phone || phone.length!==10){
+    return "Not available";
+  }
+
+  return "+91 " +
+    phone.substring(0,2) +
+    "******" +
+    phone.substring(8,10);
+
+}
+
+
+/* =====================================================
+   GET PROFILE KEY
+===================================================== */
+
+function profileKey(){
+
+  return "royalPlayProfile_" + currentPhone;
+
+}
+
+
+/* =====================================================
+   GET PROFILE
+===================================================== */
+
+function getProfile(){
+
+  const key = profileKey();
+
+  const saved =
+    localStorage.getItem(key);
+
+  if(saved){
+
+    try{
+
+      return JSON.parse(saved);
+
+    }catch(e){}
+
+  }
+
+
+  const profile = {
+
+    phone:currentPhone,
+
+    name:"Player " +
+      currentPhone.slice(-4),
+
+    points:1240,
+
+    vip:4,
+
+    balance:"0.50",
+
+    rounds:0
+
+  };
+
+
+  localStorage.setItem(
+    key,
+    JSON.stringify(profile)
+  );
+
+
+  return profile;
+
+}
+
+
+/* =====================================================
+   SAVE PROFILE
+===================================================== */
+
+function saveProfile(){
+
+  if(!currentPhone){
+    return;
+  }
+
+  const profile = getProfile();
+
+  profile.points =
+    demoPoints;
+
+  profile.rounds =
+    roundCount;
+
+  localStorage.setItem(
+    profileKey(),
+    JSON.stringify(profile)
+  );
+
+}
+
+
+/* =====================================================
+   CHECK LOGIN
+===================================================== */
+
+function checkLogin(){
+
+  const saved =
+    localStorage.getItem(
+      "royalPlayLoggedIn"
+    );
+
+  const savedPhone =
+    localStorage.getItem(
+      "royalPlayPhone"
+    );
+
+
+  if(
+    saved === "true" &&
+    savedPhone
+  ){
+
+    currentPhone =
+      savedPhone;
+
+
+    const profile =
+      getProfile();
+
+
+    demoPoints =
+      profile.points || 1240;
+
+
+    roundCount =
+      profile.rounds || 0;
+
+
+    loginScreen.style.display =
+      "none";
+
+    app.style.display =
+      "block";
+
+
+    updateTopProfile();
+
+
+    home();
+
+  }
+
+}
+
+
+/* =====================================================
+   SEND OTP
+===================================================== */
+
+function sendOTP(){
+
+  const phone =
+    cleanPhone(phoneInput.value);
+
+
+  phoneError.textContent =
+    "";
+
+
+  if(phone.length !== 10){
+
+    phoneError.textContent =
+      "Please enter a valid 10 digit Indian mobile number.";
+
+    return;
+
+  }
+
+
+  if(!/^[6-9]\d{9}$/.test(phone)){
+
+    phoneError.textContent =
+      "Indian mobile number should start with 6, 7, 8 or 9.";
+
+    return;
+
+  }
+
+
+  currentPhone =
+    phone;
+
+
+  otpPhoneText.textContent =
+    "OTP sent to +91 " + phone;
+
+
+  phoneScreen.style.display =
+    "none";
+
+  otpScreen.style.display =
+    "block";
+
+
+  otpInput.value =
+    "";
+
+  otpError.textContent =
+    "";
+
+
+  setTimeout(()=>{
+
+    otpInput.focus();
+
+  },200);
+
+}
+
+
+/* =====================================================
+   VERIFY OTP
+===================================================== */
+
+function verifyOTP(){
+
+  const otp =
+    otpInput.value.trim();
+
+
+  otpError.textContent =
+    "";
+
+
+  if(otp !== "123456"){
+
+    otpError.textContent =
+      "Incorrect OTP. Demo OTP is 123456.";
+
+    return;
+
+  }
+
+
+  /* SAVE LOGIN */
+
+  localStorage.setItem(
+    "royalPlayLoggedIn",
+    "true"
+  );
+
+
+  localStorage.setItem(
+    "royalPlayPhone",
+    currentPhone
+  );
+
+
+  /* LOAD NUMBER-SPECIFIC PROFILE */
+
+  const profile =
+    getProfile();
+
+
+  demoPoints =
+    profile.points || 1240;
+
+
+  roundCount =
+    profile.rounds || 0;
+
+
+  loginScreen.style.display =
+    "none";
+
+
+  app.style.display =
+    "block";
+
+
+  updateTopProfile();
+
+
+  msg(
+    "Login successful"
+  );
+
+
+  setTimeout(()=>{
+
+    home();
+
+  },400);
+
+}
+
+
+/* =====================================================
+   CHANGE NUMBER
+===================================================== */
+
+function backToPhone(){
+
+  otpScreen.style.display =
+    "none";
+
+  phoneScreen.style.display =
+    "block";
+
+  otpInput.value =
+    "";
+
+  otpError.textContent =
+    "";
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  saveProfile();
+
+
+  localStorage.removeItem(
+    "royalPlayLoggedIn"
+  );
+
+  localStorage.removeItem(
+    "royalPlayPhone"
+  );
+
+
+  currentPhone = "";
+
+  demoPoints = 1240;
+
+  roundCount = 0;
+
+
+  clearInterval(timer);
+
+
+  app.style.display =
+    "none";
+
+
+  loginScreen.style.display =
+    "flex";
+
+
+  phoneScreen.style.display =
+    "block";
+
+  otpScreen.style.display =
+    "none";
+
+
+  phoneInput.value =
+    "";
+
+  otpInput.value =
+    "";
+
+  phoneError.textContent =
+    "";
+
+  otpError.textContent =
+    "";
+
+
+  msg(
+    "Logged out"
+  );
+
+}
+
+
+/* =====================================================
+   UPDATE TOP PROFILE
+===================================================== */
+
+function updateTopProfile(){
+
+  const profile =
+    getProfile();
+
+
+  const label =
+    document.getElementById(
+      "topProfileLabel"
+    );
+
+
+  if(label){
+
+    label.textContent =
+      "VIP " +
+      (profile.vip || 4);
+
+  }
+
+}
+
+
+/* =====================================================
+   HOME
+===================================================== */
+
+function home(){
+
+  clearInterval(timer);
+
+
+  content.innerHTML = `
+
+  <div class="page">
+
+
+    <div class="carousel">
+
+
+      <!-- SLIDE 1 -->
+
+      <div class="slide one active">
+
+        <div class="art">
+
+          <div
+            class="fallback-art">
+
+            👑
+
+          </div>
+
+          <div class="spark">
+            ✦
+          </div>
+
+          <div class="coins">
+            🪙 🪙
+          </div>
+
         </div>
 
-        <div class="cash"
-             onclick="cashDemo()">
 
-            <span>💰</span>
-            <label>GET CASH</label>
+        <div class="slide-content">
+
+          <div class="pill">
+            👑 TOP GAMING PLATFORM
+          </div>
+
+          <h1>
+            TOP BRAND CHOICE
+          </h1>
+
+          <p>
+            GET A CHANCE TO WIN
+          </p>
+
+          <div class="prize">
+            ₹777,777
+          </div>
+
+          <p>
+            GRAND PRIZE DEMO
+          </p>
+
+          <button
+            class="primary"
+            onclick="game('Royal Play')">
+
+            PLAY NOW
+
+          </button>
 
         </div>
 
-        <div onclick="vip()">
-            <span>🛡️</span>
-            <label>VIP</label>
+      </div>
+
+
+      <!-- SLIDE 2 -->
+
+      <div class="slide two">
+
+        <div class="art">
+
+          <div class="fallback-art">
+            💰
+          </div>
+
+          <div class="spark">
+            ✦
+          </div>
+
+          <div class="coins">
+            🪙 🪙 🪙
+          </div>
+
         </div>
 
-        <div onclick="earn()">
-            <span>₹</span>
-            <label>EARN</label>
+
+        <div class="slide-content">
+
+          <div class="pill">
+            🔥 FEATURED EVENT
+          </div>
+
+          <h1>
+            GOLD RUSH
+          </h1>
+
+          <p>
+            COLLECT DEMO TREASURES
+          </p>
+
+          <div class="prize">
+            10,000 PTS
+          </div>
+
+          <p>
+            ARCADE REWARD
+          </p>
+
+          <button
+            class="primary"
+            onclick="game('Gold Rush')">
+
+            OPEN DEMO
+
+          </button>
+
         </div>
 
-    </nav>
+      </div>
 
 
-    <script src="script.js"></script>
+      <!-- SLIDE 3 -->
+
+      <div class="slide three">
+
+        <div class="art">
+
+          <div class="fallback-art">
+            🏆
+          </div>
+
+          <div class="spark">
+            ✦
+          </div>
+
+        </div>
+
+
+        <div class="slide-content">
+
+          <div class="pill">
+            🏆 SPORTS ZONE
+          </div>
+
+          <h1>
+            PLAY & SCORE
+          </h1>
+
+          <p>
+            FUN MINI-GAMES
+          </p>
+
+          <div class="prize">
+            5,000 PTS
+          </div>
+
+          <p>
+            DEMO SCORE
+          </p>
+
+          <button
+            class="primary"
+            onclick="game('Sports Zone')">
+
+            OPEN DEMO
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <button
+        class="carousel-arrow prev"
+        onclick="move(-1)">
+
+        ‹
+
+      </button>
+
+
+      <button
+        class="carousel-arrow next"
+        onclick="move(1)">
+
+        ›
+
+      </button>
+
+
+    </div>
+
+
+    <div
+      class="dots"
+      id="dots">
+
+      ━ ● ●
+
+    </div>
+
+
+    <div class="title">
+
+      <h2>
+        Featured Games
+      </h2>
+
+      <button
+        onclick="msg('Demo game list')">
+
+        VIEW ALL
+
+      </button>
+
+    </div>
+
+
+    <div class="games">
+
+
+      <div
+        class="game crash"
+        onclick="game('Crash')">
+
+        <div>
+
+          <h3>
+            CRASH
+          </h3>
+
+          <p>
+            Arcade multiplier demo
+          </p>
+
+        </div>
+
+        <button class="play">
+          ▶
+        </button>
+
+      </div>
+
+
+      <div
+        class="game gold"
+        onclick="game('Gold Rush')">
+
+        <div>
+
+          <h3>
+            JILI STYLE
+          </h3>
+
+          <p>
+            Treasure arcade demo
+          </p>
+
+        </div>
+
+        <button class="play">
+          ▶
+        </button>
+
+      </div>
+
+
+      <div
+        class="game sports"
+        onclick="game('Sports Zone')">
+
+        <div>
+
+          <h3>
+            SPORTS
+          </h3>
+
+          <p>
+            Game zone demo
+          </p>
+
+        </div>
+
+        <button class="play">
+          ▶
+        </button>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+  `;
+
+
+  slide = 0;
+
+
+  timer =
+    setInterval(()=>{
+
+      move(1);
+
+    },4000);
+
+}
+
+
+/* =====================================================
+   SLIDER
+===================================================== */
+
+function move(n){
+
+  const slides =
+    document.querySelectorAll(
+      ".slide"
+    );
+
+
+  if(!slides.length){
+    return;
+  }
+
+
+  slides[slide]
+    .classList
+    .remove("active");
+
+
+  slide =
+    (slide + n + slides.length)
+    % slides.length;
+
+
+  slides[slide]
+    .classList
+    .add("active");
+
+
+  const dots =
+    document.getElementById(
+      "dots"
+    );
+
+
+  if(dots){
+
+    dots.innerHTML =
+      [0,1,2]
+      .map(i =>
+        i===slide
+        ? "━"
+        : "●"
+      )
+      .join(" ");
+
+  }
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function go(page){
+
+  clearInterval(timer);
+
+
+  /* HOME */
+
+  if(page === "home"){
+
+    home();
+
+    window.scrollTo(0,0);
+
+    return;
+
+  }
+
+
+  /* PROFILE */
+
+  if(page === "profile"){
+
+    profilePage();
+
+    window.scrollTo(0,0);
+
+    return;
+
+  }
+
+
+  /* RANKING */
+
+  if(page === "ranking"){
+
+    content.innerHTML = `
+
+    <div class="page">
+
+      <div class="panel">
+
+        <button
+          class="back"
+          onclick="go('home')">
+
+          ← Back
+
+        </button>
+
+        <h2>
+          🏆 Ranking
+        </h2>
+
+        <p class="note">
+          Demo leaderboard only.
+        </p>
+
+
+        <div class="list">
+
+          <div class="row">
+            <span>
+              🥇 Player One
+            </span>
+            <strong>
+              9,850 pts
+            </strong>
+          </div>
+
+          <div class="row">
+            <span>
+              🥈 Player Two
+            </span>
+            <strong>
+              8,420 pts
+            </strong>
+          </div>
+
+          <div class="row">
+            <span>
+              🥉 Player Three
+            </span>
+            <strong>
+              7,910 pts
+            </strong>
+          </div>
+
+          <div class="row">
+            <span>
+              4. Player Four
+            </span>
+            <strong>
+              6,880 pts
+            </strong>
+          </div>
+
+          <div class="row">
+            <span>
+              5. You
+            </span>
+            <strong>
+              ${demoPoints.toLocaleString()} pts
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    `;
+
+  }
+
+
+  /* CASH */
+
+  if(page === "cash"){
+
+    content.innerHTML = `
+
+    <div class="page">
+
+      <div class="panel">
+
+        <button
+          class="back"
+          onclick="go('home')">
+
+          ← Back
+
+        </button>
+
+        <h2>
+          💰 Demo Wallet
+        </h2>
+
+
+        <div class="stats">
+
+          <div class="stat">
+
+            <b>
+              ₹0.50
+            </b>
+
+            Balance
+
+          </div>
+
+
+          <div class="stat">
+
+            <b>
+              ${demoPoints}
+            </b>
+
+            Points
+
+          </div>
+
+
+          <div class="stat">
+
+            <b>
+              VIP 4
+            </b>
+
+            Level
+
+          </div>
+
+        </div>
+
+
+        <p
+          class="note"
+          style="margin-top:15px">
+
+          This is a visual prototype.
+          No deposits, withdrawals or
+          real-money transactions.
+
+        </p>
+
+
+        <button
+          class="primary"
+          onclick="msg('Demo wallet only')">
+
+          VIEW HISTORY
+
+        </button>
+
+      </div>
+
+    </div>
+
+    `;
+
+  }
+
+
+  /* VIP */
+
+  if(page === "vip"){
+
+    content.innerHTML = `
+
+    <div class="page">
+
+      <div class="panel">
+
+        <button
+          class="back"
+          onclick="go('home')">
+
+          ← Back
+
+        </button>
+
+
+        <div
+          style="
+            text-align:center;
+            font-size:70px;
+            margin:5px;
+          ">
+
+          ♛
+
+        </div>
+
+
+        <h2>
+          VIP Center
+        </h2>
+
+
+        <p>
+
+          Current level:
+
+          <b
+            style="color:#ffd43f">
+
+            VIP 4
+
+          </b>
+
+        </p>
+
+
+        <div class="bar">
+          <i></i>
+        </div>
+
+
+        <p>
+          7,000 / 10,000 demo points
+        </p>
+
+
+        <div class="two">
+
+          <div class="mini">
+
+            <h3>
+              VIP Bonus
+            </h3>
+
+            Visual reward card
+
+          </div>
+
+
+          <div class="mini">
+
+            <h3>
+              Daily Gift
+            </h3>
+
+            Demo claim
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="primary"
+          onclick="claimVip()">
+
+          CLAIM DEMO
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+    `;
+
+  }
+
+
+  /* EARN */
+
+  if(page === "earn"){
+
+    content.innerHTML = `
+
+    <div class="page">
+
+      <div class="panel">
+
+        <button
+          class="back"
+          onclick="go('home')">
+
+          ← Back
+
+        </button>
+
+
+        <h2>
+          🎁 Earn Center
+        </h2>
+
+
+        <p class="note">
+
+          Fictional UI rewards
+          for this prototype.
+
+        </p>
+
+
+        <div class="list">
+
+          <div class="row">
+
+            <span>
+              Daily check-in
+            </span>
+
+            <strong>
+              +100 pts
+            </strong>
+
+          </div>
+
+
+          <div class="row">
+
+            <span>
+              Complete tutorial
+            </span>
+
+            <strong>
+              +150 pts
+            </strong>
+
+          </div>
+
+
+          <div class="row">
+
+            <span>
+              Daily challenge
+            </span>
+
+            <strong>
+              +200 pts
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="primary"
+          onclick="claimEarn()">
+
+          CLAIM DEMO REWARD
+
+        </button>
+
+
+      </div>
+
+    </div>
+
+    `;
+
+  }
+
+
+  window.scrollTo(0,0);
+
+}
+
+
+/* =====================================================
+   PROFILE PAGE
+===================================================== */
+
+function profilePage(){
+
+  const profile =
+    getProfile();
+
+
+  content.innerHTML = `
+
+  <div class="page">
+
+    <div class="panel">
+
+
+      <button
+        class="back"
+        onclick="go('home')">
+
+        ← Back
+
+      </button>
+
+
+      <div class="profile-card">
+
+
+        <div class="profile-avatar">
+          👤
+        </div>
+
+
+        <div class="profile-name">
+
+          ${profile.name}
+
+        </div>
+
+
+        <div class="profile-phone">
+
+          🇮🇳 +91 ${profile.phone}
+
+        </div>
+
+
+        <div class="profile-badge">
+
+          ✓ MOBILE VERIFIED
+
+        </div>
+
+
+      </div>
+
+
+      <div class="stats">
+
+
+        <div class="stat">
+
+          <b>
+            ${demoPoints}
+          </b>
+
+          Points
+
+        </div>
+
+
+        <div class="stat">
+
+          <b>
+            ₹${profile.balance || "0.50"}
+          </b>
+
+          Balance
+
+        </div>
+
+
+        <div class="stat">
+
+          <b>
+            VIP ${profile.vip || 4}
+          </b>
+
+          Level
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        class="list"
+        style="margin-top:15px">
+
+
+        <div class="row">
+
+          <span>
+            📱 Mobile
+          </span>
+
+          <strong>
+            ${maskPhone(profile.phone)}
+          </strong>
+
+        </div>
+
+
+        <div class="row">
+
+          <span>
+            🔐 Account
+          </span>
+
+          <strong>
+            Verified
+          </strong>
+
+        </div>
+
+
+        <div class="row">
+
+          <span>
+            🎮 Demo rounds
+          </span>
+
+          <strong>
+            ${roundCount}
+          </strong>
+
+        </div>
+
+
+      </div>
+
+
+      <p
+        class="note"
+        style="margin-top:15px">
+
+        This profile is stored locally
+        on this device for demo purposes.
+
+      </p>
+
+
+      <button
+        class="logout"
+        onclick="logout()">
+
+        LOGOUT
+
+      </button>
+
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   CLAIM VIP
+===================================================== */
+
+function claimVip(){
+
+  demoPoints += 100;
+
+  saveProfile();
+
+  msg("+100 demo points");
+
+
+  setTimeout(()=>{
+
+    go("vip");
+
+  },500);
+
+}
+
+
+/* =====================================================
+   CLAIM EARN
+===================================================== */
+
+function claimEarn(){
+
+  demoPoints += 100;
+
+  saveProfile();
+
+  msg("+100 demo points");
+
+
+  setTimeout(()=>{
+
+    go("earn");
+
+  },500);
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function msg(text){
+
+  toast.textContent =
+    text;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    window.toastTimer
+  );
+
+
+  window.toastTimer =
+    setTimeout(()=>{
+
+      toast.classList.remove(
+        "show"
+      );
+
+    },1700);
+
+}
+
+
+/* =====================================================
+   GAME
+===================================================== */
+
+function game(name){
+
+  const modal =
+    document.createElement(
+      "div"
+    );
+
+
+  modal.className =
+    "modal-bg";
+
+
+  let icon = "🪙";
+
+
+  if(name === "Crash"){
+    icon = "🚀";
+  }
+
+
+  if(name === "Sports Zone"){
+    icon = "🏆";
+  }
+
+
+  if(name === "Royal Play"){
+    icon = "👑";
+  }
+
+
+  modal.innerHTML = `
+
+  <div class="modal">
+
+
+    <button
+      class="close">
+
+      ×
+
+    </button>
+
+
+    <div class="game-header">
+
+      <h2>
+        ${name}
+      </h2>
+
+      <p class="note">
+        Local arcade demo
+      </p>
+
+    </div>
+
+
+    <div class="score-box">
+
+
+      <div class="score">
+
+        <b id="pointsValue">
+          ${demoPoints}
+        </b>
+
+        POINTS
+
+      </div>
+
+
+      <div class="score">
+
+        <b id="roundValue">
+          ${roundCount}
+        </b>
+
+        ROUNDS
+
+      </div>
+
+
+    </div>
+
+
+    <div class="game-board">
+
+
+      <div
+        class="game-icon"
+        id="gameIcon">
+
+        ${icon}
+
+      </div>
+
+
+      <div class="game-name">
+
+        ${name}
+
+      </div>
+
+
+      <div
+        class="multiplier"
+        id="multiplier">
+
+        x1.00
+
+      </div>
+
+
+      <div
+        class="result"
+        id="gameResult">
+
+        Press START ROUND to play.
+
+      </div>
+
+
+      <button
+        class="round-btn"
+        id="roundBtn">
+
+        START ROUND
+
+      </button>
+
+
+    </div>
+
+
+    <button
+      class="back-game">
+
+      BACK TO HOME
+
+    </button>
+
+
+    <p
+      class="note"
+      style="margin-top:12px">
+
+      Demo only — no real-money
+      wagering, deposits or withdrawals.
+
+    </p>
+
+
+  </div>
+
+  `;
+
+
+  document.body.appendChild(
+    modal
+  );
+
+
+  /* CLOSE */
+
+  modal.querySelector(
+    ".close"
+  ).onclick = ()=>{
+
+    modal.remove();
+
+  };
+
+
+  /* BACK */
+
+  modal.querySelector(
+    ".back-game"
+  ).onclick = ()=>{
+
+    modal.remove();
+
+  };
+
+
+  /* ROUND */
+
+  modal.querySelector(
+    "#roundBtn"
+  ).onclick = ()=>{
+
+    playRound(
+      modal,
+      name,
+      icon
+    );
+
+  };
+
+}
+
+
+/* =====================================================
+   PLAY ROUND
+===================================================== */
+
+function playRound(
+  modal,
+  name,
+  icon
+){
+
+  const button =
+    modal.querySelector(
+      "#roundBtn"
+    );
+
+  const gameIcon =
+    modal.querySelector(
+      "#gameIcon"
+    );
+
+  const multiplier =
+    modal.querySelector(
+      "#multiplier"
+    );
+
+  const result =
+    modal.querySelector(
+      "#gameResult"
+    );
+
+  const pointsValue =
+    modal.querySelector(
+      "#pointsValue"
+    );
+
+  const roundValue =
+    modal.querySelector(
+      "#roundValue"
+    );
+
+
+  if(button.disabled){
+    return;
+  }
+
+
+  button.disabled =
+    true;
+
+
+  result.textContent =
+    "Playing demo...";
+
+
+  multiplier.textContent =
+    "x1.00";
+
+
+  gameIcon.classList.add(
+    "spin"
+  );
+
+
+  let count = 0;
+
+
+  const animation =
+    setInterval(()=>{
+
+      count++;
+
+
+      const value =
+        (
+          1 +
+          Math.random()*4
+        ).toFixed(2);
+
+
+      multiplier.textContent =
+        "x" + value;
+
+
+      if(count >= 8){
+
+        clearInterval(
+          animation
+        );
+
+
+        gameIcon.classList.remove(
+          "spin"
+        );
+
+
+        roundCount++;
+
+
+        const reward =
+          Math.floor(
+            50 +
+            Math.random()*151
+          );
+
+
+        demoPoints += reward;
+
+
+        saveProfile();
+
+
+        pointsValue.textContent =
+          demoPoints;
+
+
+        roundValue.textContent =
+          roundCount;
+
+
+        multiplier.textContent =
+          "x" +
+          (
+            1 +
+            Math.random()*4
+          ).toFixed(2);
+
+
+        result.textContent =
+          "+" +
+          reward +
+          " demo points!";
+
+
+        result.classList.add(
+          "win"
+        );
+
+
+        setTimeout(()=>{
+
+          result.classList.remove(
+            "win"
+          );
+
+        },700);
+
+
+        button.disabled =
+          false;
+
+      }
+
+    },180);
+
+}
+
+
+/* =====================================================
+   AUTO LOGIN CHECK
+===================================================== */
+
+checkLogin();
+
+</script>
 
 </body>
 </html>
