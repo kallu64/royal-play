@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Gaming App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+        <div class="logo">
+            RG
+        </div>
+
+        <div class="balance">
+            ₹<span id="balance">0.50</span>
+        </div>
+
+        <div class="gift">🎁</div>
+
+        <div class="profile">
+            👩🏻
+            <small>VIP 4</small>
+        </div>
+
+    </header>
+
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="badge">
+                    👑 TOP GAMING PLATFORM
+                </div>
+
+                <h1>TOP BRAND CHOICE</h1>
+
+                <p>
+                    GET A CHANCE TO WIN
+                </p>
+
+                <strong>₹777,777</strong>
+
+                <button onclick="demoPlay()">
+                    PLAY NOW
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- GAME BANNERS -->
+
+        <section class="games">
+
+            <div class="game-card crash"
+                 onclick="openGame('Crash')">
+
+                <div>
+                    <h2>CRASH</h2>
+                    <p>Up to 10,000X</p>
+                </div>
+
+                <button>▶</button>
+
+            </div>
+
+
+            <div class="game-card jili"
+                 onclick="openGame('JILI')">
+
+                <div>
+                    <h2>JILI</h2>
+                    <p>PLAY GAMES</p>
+                </div>
+
+                <button>▶</button>
+
+            </div>
+
+
+            <div class="game-card sports"
+                 onclick="openGame('Sports')">
+
+                <div>
+                    <h2>SPORTS</h2>
+                    <p>GAME ZONE</p>
+                </div>
+
+                <button>▶</button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAVIGATION -->
+
+    <nav class="bottom-nav">
+
+        <div onclick="menu()">
+            <span>♠</span>
+            <label>MENU</label>
+        </div>
+
+        <div onclick="ranking()">
+            <span>🏆</span>
+            <label>RANKING</label>
+        </div>
+
+        <div class="cash"
+             onclick="cashDemo()">
+
+            <span>💰</span>
+            <label>GET CASH</label>
+
+        </div>
+
+        <div onclick="vip()">
+            <span>🛡️</span>
+            <label>VIP</label>
+        </div>
+
+        <div onclick="earn()">
+            <span>₹</span>
+            <label>EARN</label>
+        </div>
+
+    </nav>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
