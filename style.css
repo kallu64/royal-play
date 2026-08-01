@@ -1,0 +1,33 @@
+function demoPlay() {
+    alert("Demo mode: Game screen will open here.");
+}
+
+
+function openGame(game) {
+    alert(game + " game selected.\nDemo version only.");
+}
+
+
+function menu() {
+    alert("Menu");
+}
+
+
+function ranking() {
+    alert("Ranking");
+}
+
+
+function cashDemo() {
+    alert("Demo Cash Center");
+}
+
+
+function vip() {
+    alert("VIP Center");
+}
+
+
+function earn() {
+    alert("Earn Center");
+}
